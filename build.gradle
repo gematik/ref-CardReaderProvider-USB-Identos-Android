@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'nu.studer.credentials'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath "de.gematik:gematik-parent-plugin:1.2.0"
+        classpath "de.gematik:documentation-plugin:1.1.2"
+        classpath "com.vanniktech:gradle-android-javadoc-plugin:0.4.0-SNAPSHOT"
+        classpath "org.jacoco:org.jacoco.core:0.8.4"
+    }
+}
+
+
+group = 'de.gematik.ti'
+description = """Provider for USB Identos CardReader"""
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+ext {
+    minSdkVersion = 24
+    targetSdkVersion = 28
+    versionCode = System.getenv("BUILD_NUMBER") as Integer ?: 1
+    versionName = rootProject.file('version.txt').text.trim()
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    compileSdkVersion = 28
+
+    eventbus = "3.1.1"
+    openhealthcard_common = "1.1.2"
+    utils = "1.2.1"
+    test_utils = "1.1.1"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

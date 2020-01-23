@@ -1,0 +1,24 @@
+@startuml
+
+
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace activities {
+      class de.gematik.ti.cardreader.provider.usb.identos.activities.UsbReceiveActivity {
+          + onResume()
+      }
+    }
+  }
+  
+
+  de.gematik.ti.cardreader.provider.usb.identos.activities.UsbReceiveActivity -up-|> android.app.Activity
+
+
+
+
+
+
+
+
+
+@enduml

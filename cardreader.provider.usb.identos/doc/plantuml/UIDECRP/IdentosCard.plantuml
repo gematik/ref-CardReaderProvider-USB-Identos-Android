@@ -1,0 +1,28 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosCard {
+          {static} # PROTO_T_1 : String
+          {static} - MANAGE_CHANNEL_COMMAND_OPEN : CommandAPDU
+          {static} - RESPONSE_SUCCESS : int
+          - reader : UsbReader
+          - atr : ATR
+          - exclusiveThread : Thread
+          ~ IdentosCard()
+          + getATR()
+          + getProtocol()
+          + getBasicChannel()
+          + openLogicalChannel()
+          + beginExclusive()
+          + endExclusive()
+          + transmitControlCommand()
+          + disconnect()
+          ~ getUsbReader()
+          ~ checkExclusive()
+          ~ checkCardOpen()
+      }
+    }
+
+  IdentosCard -up-|> Card
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosCardReaderController {
+          {static} - ACTION_USB_PERMISSION_IDENTOS : String
+          {static} - LOG : Logger
+          {static} - instance : IdentosCardReaderController
+          - cardReaders : Map<Integer, ICardReader>
+          - IdentosCardReaderController()
+          {static} + getInstance()
+          + getCardReaders()
+          + addConnectionListener()
+          ~ addNewAndInform()
+          ~ removeAndInform()
+          + waitForPermission()
+          + ctInitCompleted()
+          - readDevices()
+          - createUsbReceiver()
+      }
+    }
+
+  IdentosCardReaderController -up-|> AbstractAndroidCardReaderController
+
+@enduml

@@ -1,0 +1,148 @@
+@startuml
+
+title __CARDREADER.PROVIDER.USB.IDENTOS's Class Diagram__\n
+
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosCard {
+                {static} # PROTO_T_1 : String
+                {static} - MANAGE_CHANNEL_COMMAND_OPEN : CommandAPDU
+                {static} - RESPONSE_SUCCESS : int
+                - reader : UsbReader
+                - atr : ATR
+                - exclusiveThread : Thread
+                ~ IdentosCard()
+                + getATR()
+                + getProtocol()
+                + getBasicChannel()
+                + openLogicalChannel()
+                + beginExclusive()
+                + endExclusive()
+                + transmitControlCommand()
+                + disconnect()
+                ~ getUsbReader()
+                ~ checkExclusive()
+                ~ checkCardOpen()
+      }
+    }
+  }
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosCardChannel {
+                {static} - MANAGE_CHANNEL_COMMAND_CLOSE : CommandAPDU
+                {static} - RESPONSE_SUCCESS : int
+                {static} - LOW_CHANNEL_NUMBER_VALUE : int
+                {static} - MAX_CHANNEL_NO_VALUE : int
+                - channelNo : int
+                - channelClosed : boolean
+                ~ IdentosCardChannel()
+                ~ IdentosCardChannel()
+                + getCard()
+                + getChannelNumber()
+                + transmit()
+                + transmit()
+                + close()
+                ~ modifyCommandForLogicalChannel()
+                - checkChannelClosed()
+      }
+    }
+  }
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosCardReader {
+                {static} - LOG : Logger
+                {static} - PROTO_ID_T_1 : byte
+                - cardReader : UsbReader
+                - context : Context
+                - initialized : boolean
+                + IdentosCardReader()
+                + initialize()
+                + isInitialized()
+                + connect()
+                + connect()
+                + getName()
+                + isCardPresent()
+                + waitForCardAbsent()
+                + waitForCardPresent()
+                + toString()
+                + getReader()
+                - initialize()
+                - hasPermission()
+                - registerForEvents()
+                - checkInitialized()
+      }
+    }
+  }
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosCardReaderController {
+                {static} - ACTION_USB_PERMISSION_IDENTOS : String
+                {static} - LOG : Logger
+                {static} - instance : IdentosCardReaderController
+                - cardReaders : Map<Integer, ICardReader>
+                - IdentosCardReaderController()
+                {static} + getInstance()
+                + getCardReaders()
+                + addConnectionListener()
+                ~ addNewAndInform()
+                ~ removeAndInform()
+                + waitForPermission()
+                + ctInitCompleted()
+                - readDevices()
+                - createUsbReceiver()
+      }
+    }
+  }
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosCardReaderProvider {
+                - providerDescriptor : ProviderDescriptor
+                + IdentosCardReaderProvider()
+                + getCardReaderController()
+                + getDescriptor()
+      }
+    }
+  }
+  
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosEventListener {
+                {static} - LOG : Logger
+                + onCardEvent()
+            }
+    }
+  }
+  
+
+  package de.gematik.ti.cardreader.provider.usb.identos {
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosUsbReceiver {
+                {static} - LOG : Logger
+                - cardReaders : Collection<ICardReader>
+                + IdentosUsbReceiver()
+                + onReceive()
+                + onDeviceAttached()
+                + onDeviceDetached()
+            }
+    }
+  }
+
+  IdentosCard -up-|> Card
+  IdentosCard o-- IdentosCardChannel : basicChannel
+  IdentosCardChannel -up-|> CardChannel
+  IdentosCardChannel o-- IdentosCard : card
+  IdentosCardReader -up-|> ICardReader
+  IdentosCardReader o-- IdentosEventListener : eventListener
+  IdentosCardReaderController -up-|> AbstractAndroidCardReaderController
+  IdentosCardReaderController o-- IdentosUsbReceiver : identosUsbReceiver
+  IdentosCardReaderProvider -up-|> ICardReaderControllerProvider
+  IdentosEventListener -up-|> OnCardEventListener
+  IdentosUsbReceiver -up-|> BroadcastReceiver
+
+@enduml

@@ -1,0 +1,29 @@
+ifndef::globalConfig[]
+:globalConfig: true
+:useCachePlantuml: true
+// asciidoc settings for EN (English)
+// ==================================
+
+
+:toc-title: Table of Contents
+
+// enable table-of-contents
+:toc:
+:toclevels: 4
+
+:classdia-caption: Class diagram
+:seqdia-caption: Sequence diagram
+
+:source-highlighter: prettify
+
+// where are images located?
+:imagesdir: cardreader.provider.usb.identos/doc/images
+:imagesoutdir: cardreader.provider.usb.identos/doc/images/
+:testdir: ../../src/test/java/de/gematik/ti
+:sourcedir: /cardreader.provider.usb.identos/src/main/java/de/gematik/ti
+:plantumldir: ../plantuml
+
+
+
+
+endif::globalConfig[]

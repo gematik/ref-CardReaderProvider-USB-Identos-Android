@@ -1,0 +1,7 @@
+include::config.adoc[]
+== License
+
+Licensed under the https://www.apache.org/licenses/LICENSE-2.0[Apache License, Version 2.0].
+
+The USB Identos CardReader provider uses the Software Development Kit (SDK) developed by IDENTOS.
+This framework is provided by IDENTOS for use exclusively with the APPIDKEY ID100 Card Reader, and is governed by the terms of use granted by license to users of the ID100 product.

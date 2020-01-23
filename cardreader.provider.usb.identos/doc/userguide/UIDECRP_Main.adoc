@@ -1,0 +1,6 @@
+include::config.adoc[]
+
+== Identos USB CardReaderProvider
+include::UIDECRP_Introduction.adoc[]
+include::UIDECRP_Overview.adoc[]
+include::UIDECRP_GettingStarted.adoc[]

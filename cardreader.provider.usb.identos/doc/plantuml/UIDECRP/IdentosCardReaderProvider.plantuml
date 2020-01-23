@@ -1,0 +1,14 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosCardReaderProvider {
+          - providerDescriptor : ProviderDescriptor
+          + IdentosCardReaderProvider()
+          + getCardReaderController()
+          + getDescriptor()
+      }
+    }
+
+  IdentosCardReaderProvider -up-|> ICardReaderControllerProvider
+
+@enduml

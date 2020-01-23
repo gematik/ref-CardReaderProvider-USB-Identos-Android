@@ -1,0 +1,19 @@
+// asciidoc settings for EN (English)
+// ==================================
+:toc-title: Table of Contents
+
+// enable table-of-contents
+:toc:
+:toclevels: 4
+
+:javadoc: true
+
+:classdia-caption: Class diagram
+
+// where are images located?
+:imagesdir: ../doc/images
+:imagesoutdir: ../doc/images
+:testdir: ../src/test/java/de/gematik/ti
+:sourcedir: ../src/main/java/de/gematik/ti
+:plantumldir: ../plantuml
+:userguide: ../doc/userguide

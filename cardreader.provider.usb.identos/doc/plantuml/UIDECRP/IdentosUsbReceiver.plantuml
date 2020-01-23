@@ -1,0 +1,16 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.control {
+      class IdentosUsbReceiver {
+          {static} - LOG : Logger
+          - cardReaders : Collection<ICardReader>
+          + IdentosUsbReceiver()
+          + onReceive()
+          + onDeviceAttached()
+          + onDeviceDetached()
+      }
+    }
+
+  IdentosUsbReceiver -up-|> BroadcastReceiver
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosCardChannel {
+          {static} - MANAGE_CHANNEL_COMMAND_CLOSE : CommandAPDU
+          {static} - RESPONSE_SUCCESS : int
+          {static} - LOW_CHANNEL_NUMBER_VALUE : int
+          {static} - MAX_CHANNEL_NO_VALUE : int
+          - channelNo : int
+          - channelClosed : boolean
+          ~ IdentosCardChannel()
+          ~ IdentosCardChannel()
+          + getCard()
+          + getChannelNumber()
+          + transmit()
+          + transmit()
+          + close()
+          ~ modifyCommandForLogicalChannel()
+          - checkChannelClosed()
+      }
+    }
+
+  IdentosCardChannel -up-|> CardChannel
+
+@enduml

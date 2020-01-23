@@ -1,0 +1,220 @@
+/*
+ * Copyright (c) 2020 gematik GmbH
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'com.android.library'
+apply plugin: 'de.gematik.parent'
+apply plugin: "de.gematik.asciidoctor"
+apply plugin: "de.gematik.android.publish"
+apply plugin: 'com.vanniktech.android.javadoc'
+apply plugin: 'jacoco'
+
+group = 'de.gematik.ti'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+		debug {
+            testCoverageEnabled = true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+			returnDefaultValues = true
+        }
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    //############# Gematik #############
+    implementation group: 'de.gematik.ti', name: 'openhealthcard.common', version:  rootProject
+            .ext.openhealthcard_common
+    implementation group: 'de.gematik.ti', name: 'utils', version:rootProject
+            .ext.utils
+
+    //############# Dagger2 #############
+    implementation 'com.google.dagger:dagger:2.19'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.19'
+	
+	//############# Eventbus #############
+    implementation group: 'org.greenrobot', name: 'eventbus', version: rootProject.ext.eventbus
+
+
+    //############# Test #############
+    //Test @see https://developer.android.com/training/testing/set-up-project
+    testImplementation 'junit:junit:4.12'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:2.23.4'
+
+    // Robolectric
+
+    testImplementation 'org.robolectric:robolectric:3.4.2'
+    testImplementation 'org.robolectric:shadowapi:3.4.2'
+
+    // PowerMockito
+    // implementation 'org.powermock:powermock-module-junit4:2.0.0-RC.4'
+    // testImplementation 'org.powermock:powermock-api-mockito2:2.0.0-RC.4'
+    // testImplementation 'org.powermock:powermock-module-junit4-rule:2.0.0-RC.4'
+    // testImplementation 'org.powermock:powermock-classloading-base:2.0.0-RC.4'
+
+    // Core library
+    androidTestImplementation 'androidx.test:core:1.0.0'
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
+    androidTestImplementation 'androidx.test.ext:truth:1.0.0'
+    androidTestImplementation 'com.google.truth:truth:0.42'
+    // Espresso dependencies
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+    // The following Espresso dependency can be either "implementation"
+    // or "androidTestImplementation", depending on whether you want the
+    // dependency to appear on your APK's compile classpath or the test APK
+    // classpath.
+    androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+
+    // implementation 'com.identos.android:id100.library:2.0.0'
+    implementation 'org.jetbrains:annotations:15.0'
+}
+
+gematikDocumentation {
+    projectShortcut = "UIDECRP"
+    documentVersionReference = "version_cardreader_provider_usb_identos"
+}
+
+gematikPublish {
+    name = "CardReaderProvider-USB-Identos"
+    description = "The CardReaderProvider-USB-Identos library provides functionality to use Identos card reader on Android devices."
+    gitHubProjectName = "ref-CardReaderProvider-USB-Identos-Android"
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories = fileTree(
+            dir: 'build/intermediates/javac/debug/compileDebugJavaWithJavac',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*'])
+    sourceDirectories = files('src/main/java')
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+    doFirst {
+        files('build/intermediates/javac/debugAndroidTest/classes/').getFiles().each { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.sources", "src/main/java"
+        property "sonar.binaries", "build/intermediates/javac/debug/classes"
+        property "sonar.java.binaries", "build/intermediates/javac/debug/classes"
+        property "sonar.tests", "src/test/java, src/androidTest/java"
+        property "sonar.java.test.binaries", "build/intermediates/javac/debugUnitTest/classes"
+
+        def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files
+        def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files
+        unit.addAll(ui)
+        def files = unit.join(", ")
+
+        property "sonar.jacoco.reportPaths", files
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.junit.reportsPath", "build/test-results/testDebugUnitTest"
+        property "sonar.android.lint.report", "build/reports/lint-results.xml"
+        property "sonar.dependencyCheck.reportPath", "${project.rootDir}/dependency-check-report.xml"
+        property "sonar.dependencyCheck.htmlReportPath", "${project.rootDir}/dependency-check-report.html"
+    }
+}
+
+android.libraryVariants.all { variant ->
+    task("${variant.name}Docs", type: Javadoc) {
+        source = variant.javaCompiler.source
+        classpath = files(((Object) android.bootClasspath.join(File.pathSeparator)))
+        classpath += variant.javaCompiler.classpath
+    }
+}
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from "${project.buildDir}/../src/main/java"
+}
+
+task testSourceJar(type: Jar) {
+    classifier "test-sources"
+    from "${project.buildDir}/../src/test/java/"
+    include "**/*.java"
+}
+
+task adocJar(type: Jar) {
+    classifier "adoc"
+    from "${project.buildDir}/../doc"
+    into "${project.name}"
+    exclude "**/generated/**/*.*"
+}
+
+task javadocJar(type: Jar) {
+    classifier "javadoc"
+    from "${project.buildDir}/docs/javadoc/release"
+    into "${project.name}"
+}
+
+artifacts {
+    archives sourceJar
+    archives testSourceJar
+    archives adocJar
+    archives javadocJar
+}
+
+

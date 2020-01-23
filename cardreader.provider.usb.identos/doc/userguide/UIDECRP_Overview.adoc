@@ -1,0 +1,225 @@
+include::config.adoc[]
+
+== Overview
+
+ifndef::useCachePlantuml[]
+
+.usbIdentosCardReaderProvider
+[plantuml, UIDECRP/generated/overview, png, caption="{classdia-caption} {counter:class}: ", 650]
+----
+include::{plantumldir}/UIDECRP/overview.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.usbIdentosCardReaderProvider
+image::UIDECRP/generated/overview.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+
+=== Integration
+The Identos USB CardReaderProvider needs a descriptor behind `YOUR.PROVIDER\src\main\resources\META-INF\services` with filename `de.gematik.ti.cardreader.provider.spi.ICardReaderControllerProvider` and the content of the package and class which implements the service provider interface `de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderProvider`.
+
+== Hardware
+The integrated Identos id100 library for Android supports the usage of integrating smart card functionality using Identos CardReader.
+
+== About
+=== Licence
+Gematik internal usage, details tbd.
+
+=== Publisher
+gematik Gesellschaft für Telematikanwendungen der Gesundheitskarte mbH 2019
+
+== Control
+
+=== IdentosCardReaderProvider
+
+// tag:IdentosCardReaderProvider[]
+
+The IdentosCardReaderProvider class needs implementation of the interface 'ICardReaderControllerProvider' to handle listener and provide methods to inform connected listeners about card reader changes.
+
+ifndef::useCachePlantuml[]
+
+.IdentosCardReaderProvider
+[plantuml, UIDECRP/generated/IdentosCardReaderProvider, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosCardReaderProvider.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.usbIdentosCardReaderProvider
+image::UIDECRP/generated/IdentosCardReaderProvider.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+// end::IdentosCardReaderProvider[]
+
+=== IdentosCardReaderController
+
+// tag::IdentosCardReaderController[]
+
+The IdentosCardReaderController class extends the abstract class 'AbstractCardReaderController' to handle necessary permissions and checking if the application context is set. Returns a list with currently connected Identos cardReaders and informs about reader connection and disconnection.
+
+ifndef::useCachePlantuml[]
+
+.IdentosCardReaderController
+[plantuml, UIDECRP/generated/IdentosCardReaderController, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosCardReaderController.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosCardReaderController
+image::UIDECRP/generated/IdentosCardReaderController.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+// end::IdentosCardReaderController[]
+
+
+=== IdentosUsbReceiver
+
+// tag::IdentosUsbReceiver[]
+
+The IdentosUsbReceiver class extends the BroadCastReceiver class that receives and handles broadcast intents sent by {@link android.content.Context#sendBroadcast(Intent)}.
+The actions of the intents that are being handled are changes in the state of the usb device (attach / detach).
+
+ifndef::useCachePlantuml[]
+
+.IdentosUsbReceiver
+[plantuml, UIDECRP/generated/IdentosUsbReceiver, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosUsbReceiver.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosUsbReceiver
+image::UIDECRP/generated/IdentosUsbReceiver.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+// end::IdentosUsbReceiver[]
+
+== Entities
+
+=== IdentosCardReader
+
+// tag::IdentosCardReader[]
+
+The Identos Smart Card Reader implements the Interface ICardReader. Works as adapter to the Identos id100 library for Android.
+
+ifndef::useCachePlantuml[]
+
+.IdentosCardReader
+[plantuml, UIDECRP/generated/IdentosCardReader, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosCardReader.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosCardReader
+image::UIDECRP/generated/IdentosCardReader.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+// end::IdentosCardReader[]
+
+
+=== IdentosCard
+
+// tag::IdentosCard[]
+
+A Smart Card with which a connection has been established. IdentosCard extends the abstract class Card. Works as adapter to the Identos id100 library for Android.
+
+ifndef::useCachePlantuml[]
+
+.IdentosCard
+[plantuml, UIDECRP/generated/IdentosCard, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosCard.plantuml[]
+----
+
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosCard
+image::UIDECRP/generated/IdentosCard.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+
+// end::IdentosCard[]
+
+
+=== IdentosEventListener
+
+// tag::IdentosEventListener[]
+
+EventListener for card events. Works as adapter to the Identos id100 library for Android.
+
+ifndef::useCachePlantuml[]
+
+.IdentosEventListener
+[plantuml, UIDECRP/generated/IdentosEventListener, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosEventListener.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosEventListener
+image::UIDECRP/generated/IdentosEventListener.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+// end::IdentosEventListener[]
+
+
+=== IdentosCardChannel
+
+// tag::IdentosCardChannel[]
+
+A logical channel connection to a Smart Card. It is used to exchange APDUs with a Smart Card using USB Identos CardReader. A IdentosCardChannel object can be obtained by calling the method IdentosCard.getBasicChannel() or IdentosCard.openLogicalChannel().
+
+ifndef::useCachePlantuml[]
+
+.IdentosCardChannel
+[plantuml, UIDECRP/generated/IdentosCardChannel, png, caption="{classdia-caption} {counter:class}: ", 300]
+----
+include::{plantumldir}/UIDECRP/IdentosCardChannel.plantuml[]
+----
+
+endif::useCachePlantuml[]
+ifdef::useCachePlantuml[]
+
+.IdentosCardChannel
+image::UIDECRP/generated/IdentosCardChannel.png[caption="{classdia-caption} {counter:class}: "]
+
+{empty} +
+
+endif::useCachePlantuml[]
+// end::IdentosCardChannel[]

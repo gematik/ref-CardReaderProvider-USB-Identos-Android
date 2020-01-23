@@ -1,0 +1,227 @@
+@startuml
+
+
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace control {
+      class de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderController {
+          {static} - ACTION_USB_PERMISSION_IDENTOS : String
+          {static} - LOG : Logger
+          - cardReaders : Map<Integer, ICardReader>
+          {static} - instance : IdentosCardReaderController
+          + ctInitCompleted()
+          + getCardReaders()
+          + getIdentosUsbReceiver()
+          {static} + getInstance()
+          + setContext()
+          + waitForPermission()
+          ~ addNewAndInform()
+          ~ removeAndInform()
+          - IdentosCardReaderController()
+          - createUsbReceiver()
+          - readDevices()
+      }
+    }
+  }
+  
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace control {
+      class de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderProvider {
+          - providerDescriptor : ProviderDescriptor
+          + IdentosCardReaderProvider()
+          + getCardReaderController()
+          + getDescriptor()
+      }
+    }
+  }
+  
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace control {
+      class de.gematik.ti.cardreader.provider.usb.identos.control.IdentosEventListener {
+          {static} - LOG : Logger
+          - cardEventTransmitter : CardEventTransmitter
+          + IdentosEventListener()
+          + onCardEvent()
+      }
+    }
+  }
+  
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace control {
+      class de.gematik.ti.cardreader.provider.usb.identos.control.IdentosUsbReceiver {
+          {static} - LOG : Logger
+          + IdentosUsbReceiver()
+          + onReceive()
+          - onDeviceAttached()
+          - onDeviceDetached()
+      }
+    }
+  }
+  
+
+  namespace de.gematik.ti.cardreader.provider.usb.identos {
+    namespace control {
+      class de.gematik.ti.cardreader.provider.usb.identos.control.MockContext {
+          + bindService()
+          + bindServiceAsUser()
+          + canLoadUnsafeResources()
+          + checkCallingOrSelfPermission()
+          + checkCallingOrSelfUriPermission()
+          + checkCallingPermission()
+          + checkCallingUriPermission()
+          + checkPermission()
+          + checkPermission()
+          + checkSelfPermission()
+          + checkUriPermission()
+          + checkUriPermission()
+          + checkUriPermission()
+          + clearWallpaper()
+          + createApplicationContext()
+          + createConfigurationContext()
+          + createContextForSplit()
+          + createCredentialProtectedStorageContext()
+          + createDeviceProtectedStorageContext()
+          + createDisplayContext()
+          + createPackageContext()
+          + createPackageContextAsUser()
+          + databaseList()
+          + deleteDatabase()
+          + deleteFile()
+          + deleteSharedPreferences()
+          + enforceCallingOrSelfPermission()
+          + enforceCallingOrSelfUriPermission()
+          + enforceCallingPermission()
+          + enforceCallingUriPermission()
+          + enforcePermission()
+          + enforceUriPermission()
+          + enforceUriPermission()
+          + fileList()
+          + getActivityToken()
+          + getApplicationContext()
+          + getApplicationInfo()
+          + getAssets()
+          + getBasePackageName()
+          + getCacheDir()
+          + getClassLoader()
+          + getCodeCacheDir()
+          + getContentResolver()
+          + getDataDir()
+          + getDatabasePath()
+          + getDir()
+          + getDisplay()
+          + getExternalCacheDir()
+          + getExternalCacheDirs()
+          + getExternalFilesDir()
+          + getExternalFilesDirs()
+          + getExternalMediaDirs()
+          + getFileStreamPath()
+          + getFilesDir()
+          + getMainExecutor()
+          + getMainLooper()
+          + getMainThreadHandler()
+          + getNoBackupFilesDir()
+          + getObbDir()
+          + getObbDirs()
+          + getOpPackageName()
+          + getPackageCodePath()
+          + getPackageManager()
+          + getPackageName()
+          + getPackageResourcePath()
+          + getPreloadsFileCache()
+          + getResources()
+          + getSharedPreferences()
+          + getSharedPreferences()
+          + getSharedPreferencesPath()
+          + getSystemService()
+          + getSystemServiceName()
+          + getTheme()
+          + getUserId()
+          + getWallpaper()
+          + getWallpaperDesiredMinimumHeight()
+          + getWallpaperDesiredMinimumWidth()
+          + grantUriPermission()
+          + isCredentialProtectedStorage()
+          + isDeviceProtectedStorage()
+          + isRestricted()
+          + moveDatabaseFrom()
+          + moveSharedPreferencesFrom()
+          + openFileInput()
+          + openFileOutput()
+          + openOrCreateDatabase()
+          + openOrCreateDatabase()
+          + peekWallpaper()
+          + registerReceiver()
+          + registerReceiver()
+          + registerReceiver()
+          + registerReceiver()
+          + registerReceiverAsUser()
+          + reloadSharedPreferences()
+          + removeStickyBroadcast()
+          + removeStickyBroadcastAsUser()
+          + revokeUriPermission()
+          + revokeUriPermission()
+          + sendBroadcast()
+          + sendBroadcast()
+          + sendBroadcast()
+          + sendBroadcast()
+          + sendBroadcastAsUser()
+          + sendBroadcastAsUser()
+          + sendBroadcastAsUser()
+          + sendBroadcastAsUser()
+          + sendBroadcastAsUserMultiplePermissions()
+          + sendBroadcastMultiplePermissions()
+          + sendOrderedBroadcast()
+          + sendOrderedBroadcast()
+          + sendOrderedBroadcast()
+          + sendOrderedBroadcast()
+          + sendOrderedBroadcastAsUser()
+          + sendOrderedBroadcastAsUser()
+          + sendOrderedBroadcastAsUser()
+          + sendStickyBroadcast()
+          + sendStickyBroadcastAsUser()
+          + sendStickyBroadcastAsUser()
+          + sendStickyOrderedBroadcast()
+          + sendStickyOrderedBroadcastAsUser()
+          + setTheme()
+          + setWallpaper()
+          + setWallpaper()
+          + startActivities()
+          + startActivities()
+          + startActivity()
+          + startActivity()
+          + startForegroundService()
+          + startForegroundServiceAsUser()
+          + startInstrumentation()
+          + startIntentSender()
+          + startIntentSender()
+          + startService()
+          + startServiceAsUser()
+          + stopService()
+          + stopServiceAsUser()
+          + unbindService()
+          + unregisterReceiver()
+          + updateDisplay()
+      }
+    }
+  }
+  
+
+  de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderController -up-|> de.gematik.ti.openhealthcard.common.AbstractAndroidCardReaderController
+  de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderController o-- de.gematik.ti.cardreader.provider.usb.identos.control.IdentosUsbReceiver : identosUsbReceiver
+  de.gematik.ti.cardreader.provider.usb.identos.control.IdentosCardReaderProvider .up.|> de.gematik.ti.cardreader.provider.spi.ICardReaderControllerProvider
+  de.gematik.ti.cardreader.provider.usb.identos.control.IdentosEventListener .up.|> com.identos.android.id100.library.ccid.OnCardEventListener
+  de.gematik.ti.cardreader.provider.usb.identos.control.IdentosUsbReceiver -up-|> android.content.BroadcastReceiver
+  de.gematik.ti.cardreader.provider.usb.identos.control.MockContext -up-|> android.content.Context
+
+
+
+
+
+
+
+
+
+@enduml

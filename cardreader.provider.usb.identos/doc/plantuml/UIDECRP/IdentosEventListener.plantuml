@@ -1,0 +1,12 @@
+@startuml
+
+    package de.gematik.ti.cardreader.provider.usb.identos.entities {
+      class IdentosEventListener {
+          {static} - LOG : Logger
+          + onCardEvent()
+      }
+    }
+
+  IdentosEventListener -up-|> OnCardEventListener
+
+@enduml
