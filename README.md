@@ -1,4 +1,4 @@
-# UsbIdentosCardReaderProvider
+# USB-Identos-CardReaderProvider
 
 ## Introduction
 
@@ -6,7 +6,7 @@ This part describes the usage of low level CardReaderProvider for USB IdentosCar
 
 ## API Documentation
 
-Generated API docs are available at <https://ref-CardReaderProvider-USB-Identos-Android>.
+Generated API docs are available at <https://github.com/gematik/ref-CardReaderProvider-USB-Identos-Android>.
 
 ## License
 
@@ -28,16 +28,6 @@ The Identos USB CardReaderProvider needs a descriptor behind `YOUR.PROVIDER\src\
 ## Hardware
 
 The integrated Identos id100 library for Android supports the usage of integrating smart card functionality using Identos CardReader.
-
-## About
-
-### Licence
-
-Gematik internal usage, details tbd.
-
-### Publisher
-
-gematik Gesellschaft für Telematikanwendungen der Gesundheitskarte mbH 2019
 
 ## Control
 
@@ -109,7 +99,7 @@ To use CardReaderProvider for Identos USB CardReader in a project, you need just
 **Gradle dependency settings to use CardReaderProvider for Identos USB CardReader library.**
 
     dependencies {
-        implementation group: 'de.gematik.ti', name: 'cardreader.provider.usb.identos', version: '1.1.4'
+        implementation group: 'de.gematik.ti', name: 'cardreader.provider.usb.identos', version: '1.1.8'
     }
 
 **Maven dependency settings to use CardReaderProvider for Identos USB library.**
@@ -118,6 +108,6 @@ To use CardReaderProvider for Identos USB CardReader in a project, you need just
         <dependency>
             <groupId>de.gematik.ti</groupId>
             <artifactId>cardreader.provider.usb.identos</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.8</version>
         </dependency>
     </dependencies>

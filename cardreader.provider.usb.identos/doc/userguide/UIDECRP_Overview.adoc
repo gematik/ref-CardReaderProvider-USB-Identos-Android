@@ -27,13 +27,6 @@ The Identos USB CardReaderProvider needs a descriptor behind `YOUR.PROVIDER\src\
 == Hardware
 The integrated Identos id100 library for Android supports the usage of integrating smart card functionality using Identos CardReader.
 
-== About
-=== Licence
-Gematik internal usage, details tbd.
-
-=== Publisher
-gematik Gesellschaft für Telematikanwendungen der Gesundheitskarte mbH 2019
-
 == Control
 
 === IdentosCardReaderProvider

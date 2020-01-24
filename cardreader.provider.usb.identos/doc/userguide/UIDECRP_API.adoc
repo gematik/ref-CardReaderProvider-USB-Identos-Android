@@ -2,4 +2,4 @@ include::config.adoc[]
 
 == API Documentation
 
-Generated API docs are available at https://ref-CardReaderProvider-USB-Identos-Android.
+Generated API docs are available at https://github.com/gematik/ref-CardReaderProvider-USB-Identos-Android.
