@@ -1,8 +1,5 @@
 @startuml
 
-title __CARDREADER.PROVIDER.USB.IDENTOS's Class Diagram__\n
-
-
   package de.gematik.ti.cardreader.provider.usb.identos {
     package de.gematik.ti.cardreader.provider.usb.identos.entities {
       class IdentosCard {
